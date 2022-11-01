@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Опросы</title>
+</head>
+<body>
+<div class="container mt-5">
+    <h1>У какого пользователя хотите посмотреть опросы</h1>
+    <div th:each="u: ${users}" class="alert alert-info mt-2">
+        <h3 th:text="${u.login}"/>
+        <a th:href="'/user/'+ ${el.id}+'/form'">Посмотреть</a>
+    </div>
+</div>
+</body>
+</html>

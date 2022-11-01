@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<body>
+<div class="container mt-5">
+    <h1>Доступные анкеты</h1>
+    <div th:each="el: ${forms}" class="alert alert-info mt-2">
+        <h3 th:text="${el.name}"/>
+        <a th:href="'/form/'+ ${el.id}">Пройти опрос</a>
+    </div>
+    <a th:href="@{/main}">Назад</a>
+</div>
+</body>
+</html>

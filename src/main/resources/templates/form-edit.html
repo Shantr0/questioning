@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+
+        function addInput() {
+            var node = document.createElement("input");
+            var br = document.createElement("br");
+            node.type = "text";
+            node.name = "option[][]";
+            node.placeholder = "Введите вариант ответа";
+            document.getElementById("addButton").append(br);
+            document.getElementById("addButton").append(br);
+            document.getElementById("addButton").append(node);
+        }
+
+        function addAnswer(question, element, index) {
+            var node = document.createElement("input");
+            var br = document.createElement("br");
+            node.type = "text";
+            node.name = "option" + index + "[]";
+            node.placeholder = "Введите вариант ответа";
+            node.value = question;
+            element.appendChild(br);
+            element.appendChild(br);
+            element.appendChild(node);
+        }
+
+        function addQuestion(question, multiselect, answers) {
+            var div = document.createElement("div");
+            var questionInp = document.createElement("input");
+            var br = document.createElement("br");
+
+
+            var index = document.getElementById('questionList').getElementsByTagName("div").length;
+            div.id = "question" + index;
+
+            questionInp.type = "text";
+            questionInp.name = "question[]";
+            questionInp.value = question;
+
+            var checkbox = createCheckBox(multiselect, index);
+
+            div.append(questionInp);
+            div.append(checkbox);
+
+
+            for (let i = 0; i < answers.length; i++) {
+                if (answers[i].value && answers[i].type === "text")
+                    addAnswer(answers[i].value, div, index);
+            }
+            div.append(document.createElement("hr"));
+            document.getElementById("questionList").appendChild(br);
+            document.getElementById("questionList").appendChild(br);
+            document.getElementById("questionList").appendChild(div);
+
+        }
+
+        function createCheckBox(multiselect, index) {
+            var checkbox = document.createElement("section");
+            var multiselectInp = document.createElement("input");
+            multiselectInp.name = "multiselect" + index;
+            multiselectInp.id = "multiselect" + index;
+            multiselectInp.type = "checkbox";
+            multiselectInp.checked = multiselect;
+            multiselectInp.value = multiselect ? "checkbox" : "radio";
+            var multiselectLabel = document.createElement("label");
+            multiselectLabel.setAttribute("for", multiselectInp.id);
+            multiselectLabel.append(multiselectInp);
+            multiselectLabel.appendChild(document.createTextNode('  Множественный выбор'));
+            checkbox.append(multiselectLabel);
+            return checkbox;
+        }
+
+    </script>
+
+</head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<body>
+<div class="container py-4">
+    <div>
+        <form action="/formedit" method="post" th:object="${form}">
+            <h1>Создание новой анкеты</h1>
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+            <input type="text" placeholder="Введите название" name="name" th:field="*{name}"/><br>
+            <div class="container mt-5 mb-5">
+                <div>
+                    <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+                    <input id="question" type="text" placeholder="Введите вопрос" name="question"/><br><br>
+
+                    <div class="row text-right" id="answers">
+                        <div id="addButton" class="row text-right">
+                            <div>
+                                <input class="form-check-input mt-0" type="checkbox" id="multiselect"
+                                       name="multiselect" checked>
+                                <label for="multiselect">Множественный выбор</label>
+                            </div>
+                            <button onclick="addInput()" name="addInputLine" type="button">
+                                Добавить вариант ответа
+                            </button>
+                            <input type="text" placeholder="Введите вариант ответа" name="option[][]"/>
+                            <input type="text" placeholder="Введите вариант ответа" name="option[][]"/>
+                        </div>
+                    </div>
+                </div>
+                <br><br>
+                <div id="addQuestionButton" class="row text-right">
+                    <button onclick="addQuestion(document.getElementById('question').value,document.getElementById('multiselect').checked,document.getElementById('answers').getElementsByTagName('input'))"
+                            name="addInputLine" type="button">
+                        Добавить вопрос
+                    </button>
+                </div>
+            </div>
+            <div id="questionList">Список вопросов</div>
+            <br>
+            <button type="submit" class="btn btn-success">Подтвердить</button>
+        </form>
+    </div>
+
+    <div>
+        <form action="/logout" method="post">
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+            <input type="submit" value="Sign Out"/>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

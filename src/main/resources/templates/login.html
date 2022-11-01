@@ -1,0 +1,32 @@
+<html lang="en">
+
+<link type="text/css" rel="stylesheet" id="dark-mode-general-link">
+<link type="text/css" rel="stylesheet" id="dark-mode-custom-link">
+<style lang="en" type="text/css" id="dark-mode-custom-style"></style>
+<style lang="en" type="text/css" id="dark-mode-native-style"></style>
+
+<head>
+    <meta charset="utf-8">
+    <title>Login Customer</title>
+</head>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<body class="text-center">
+<div class="container">
+    <form class="form-signin" method="post" action="/login">
+        <h2 class="form-signin-heading">Авторизация</h2>
+        <p>
+            <input type="text" id="username" name="username" class="form-control" placeholder="Логин" required>
+        </p>
+        <p>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Пароль" required>
+        </p>
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+        <div><input type="submit" value="Войти"/></div>
+    </form>
+    <a href="/registration">Регистрация</a>
+</div>
+
+</body>
+</html>

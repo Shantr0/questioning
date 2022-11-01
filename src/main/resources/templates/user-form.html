@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<div class="container mt-5 mb-5">
+    <form method="post" th:object="${userForm}">
+        <div>
+            <input type="hidden" th:field="*{name}">
+            <h2 th:text="${userForm.name}" th:name="name"/><br>
+            <th:div class="checkOption" th:each="qo,iter: ${userForm.questionOptions}">
+                <label th:text="${qo.question}" th:id="'question'+${iter.index}" th:name="question"/><br>
+                <input th:field="*{questionOptions[__${iter.index}__].question}" type="hidden"/>
+                <input th:field="*{questionOptions[__${iter.index}__].multiselect}" type="hidden"/>
+                <th:div th:each="o,iter2:${qo.options}" class="variant">
+                    <input th:if="*{questionOptions[__${iter.index}__].multiselect}"
+                           th:value="'option'+'_'+${iter.index}+'_'+${iter2.index}"
+                           th:field="*{questionOptions[__${iter.index}__].options[__${iter2.index}__].checked}"
+                           type="checkbox"
+                           th:name="'option'+${iter.index}" th:id="'option'+'_'+${iter.index}+'_'+${iter2.index}"/>
+                    <input th:unless="*{questionOptions[__${iter.index}__].multiselect}"
+                           th:value="'option'+'_'+${iter.index}+'_'+${iter2.index}"
+                           type="radio"
+                           th:name="'option'+${iter.index}" th:id="'option'+'_'+${iter.index}+'_'+${iter2.index}"/>
+                    <input type="hidden"
+                           th:field="*{questionOptions[__${iter.index}__].options[__${iter2.index}__].text}"/>
+                    <label th:text="${o.text}" th:for="'option'+'_'+${iter.index}+'_'+${iter2.index}"/><br>
+                </th:div>
+                <br>
+            </th:div>
+        </div>
+        <button type="submit">Подтвердить</button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Пользователи </title>
+</head>
+<body>
+<div class="container mt-5">
+    <h1>У какого пользователя хотите посмотреть опросы</h1>
+    <div th:each="mapItem : ${userForms}" class="alert alert-info mt-2">
+        <h3 th:text="${mapItem.key}"/>
+        <div th:each="form : ${mapItem.value}">
+            <a th:href="'/useranswer/'+ ${form.id}"><p th:text="${form.name}"/></a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

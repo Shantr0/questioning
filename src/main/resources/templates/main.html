@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<link type="text/css" rel="stylesheet" id="dark-mode-general-link">
+<link type="text/css" rel="stylesheet" id="dark-mode-custom-link">
+<style lang="en" type="text/css" id="dark-mode-custom-style">
+    <
+    link type
+
+    =
+    "text/css"
+    rel
+
+    =
+    "stylesheet"
+    id
+
+    =
+    "dark-mode-custom-link"
+    >
+</style>
+<style lang="en" type="text/css" id="dark-mode-native-style"></style>
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript"
+            src="chrome-extension://epebfcehmdedogndhlcacafjaacknbcm/nmcades_plugin_api.js"></script>
+</head>
+<body>
+
+<main>
+    <div class="container py-4">
+        <div class="p-5 mb-4 bg-light rounded-3">
+            <form action="/forms">
+                <div class="container-fluid py-5">
+                    <h1 class="display-5 fw-bold">Список анкет</h1>
+                    <p class="col-md-8 fs-4">Вывести список анкет.</p>
+                    <input type="submit" value="Список"/>
+                </div>
+            </form>
+        </div>
+
+        <div class="row align-items-md-stretch" th:if="${admin}">
+            <div class="col-md-6">
+                <form action="/formedit">
+                    <div class="h-100 p-5 text-bg-dark rounded-3">
+                        <h2>Конструктор анкеты</h2>
+                        <p>Анкета может содержать любое
+                            количество вопросов. Вопрос может содержать от двух и более вариантов ответа.</p>
+                        <input class="btn btn-outline-light" type="submit" value="Создать анкету"/>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <form action="/useranswers">
+                    <div class="h-100 p-5 bg-light border rounded-3">
+                        <h2>Список опросов</h2>
+                        <p>Позволяет посмотреть список опросов которые проходили пользователи.</p>
+                        <input class="btn btn-outline-secondary" type="submit" value="Посмотреть опросы"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <a th:href="@{/logout}">Выйти</a>
+    </div>
+</main>
+</body>
+</html>
